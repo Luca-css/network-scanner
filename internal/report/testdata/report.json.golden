@@ -1,0 +1,63 @@
+{
+  "version": "test",
+  "targets": [
+    "10.0.0.0/30",
+    "web.lan"
+  ],
+  "ports": "22,80,445,3389,8081",
+  "hosts_scanned": 3,
+  "ports_per_host": 5,
+  "started": "2026-01-02T15:04:05Z",
+  "finished": "2026-01-02T15:04:06.5Z",
+  "duration_sec": 1.5,
+  "interrupted": false,
+  "stats": {
+    "probes": 8,
+    "open": 4,
+    "closed": 2,
+    "filtered": 2,
+    "hosts_up": 3,
+    "high_risk": 1,
+    "open_hosts": 2
+  },
+  "hosts": [
+    {
+      "addr": "10.0.0.1",
+      "ports": [
+        {
+          "port": 22,
+          "service": "ssh",
+          "risk": "medium",
+          "note": "Remote shell; enforce key auth and restrict source IPs",
+          "banner": "SSH-2.0-OpenSSH_9.6",
+          "latency_ms": 1
+        },
+        {
+          "port": 3389,
+          "service": "rdp",
+          "risk": "critical",
+          "note": "Remote desktop; brute-force and RCE target, put behind VPN",
+          "latency_ms": 1.5
+        },
+        {
+          "port": 8081,
+          "risk": "info",
+          "latency_ms": 1
+        }
+      ]
+    },
+    {
+      "addr": "10.0.0.10",
+      "hostname": "web.lan",
+      "ports": [
+        {
+          "port": 80,
+          "service": "http",
+          "risk": "info",
+          "note": "Web service; prefer HTTPS",
+          "latency_ms": 2
+        }
+      ]
+    }
+  ]
+}

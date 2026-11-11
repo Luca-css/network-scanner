@@ -1,0 +1,20 @@
+# Build output
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+coverage.*
+
+# Scan reports (may contain sensitive network data)
+scan_*.html
+scan_*.json
+report*.html
+report*.json
+!internal/report/testdata/*
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

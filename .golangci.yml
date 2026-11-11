@@ -1,0 +1,38 @@
+# golangci-lint v2 configuration (https://golangci-lint.run)
+version: "2"
+
+linters:
+  default: standard # errcheck, govet, ineffassign, staticcheck, unused
+  enable:
+    - bodyclose
+    - errorlint      # correct use of errors.Is / errors.As
+    - gocritic
+    - gosec          # security-oriented checks
+    - misspell
+    - nolintlint
+    - revive
+    - unconvert
+    - usestdlibvars
+  settings:
+    errcheck:
+      exclude-functions:
+        # Best-effort writes to terminals/test listeners; failures are not actionable.
+        - fmt.Fprintf
+        - fmt.Fprintln
+        - (net.Conn).Close
+        - (net.Conn).Write
+        - (net.Listener).Close
+    gosec:
+      excludes:
+        - G306 # golden files are written 0644 on purpose
+  exclusions:
+    presets:
+      - std-error-handling
+    rules:
+      - path: _test\.go
+        linters: [gosec, errcheck]
+
+formatters:
+  enable:
+    - gofmt
+    - goimports

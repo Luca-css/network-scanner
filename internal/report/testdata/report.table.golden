@@ -1,0 +1,7 @@
+HOST                 PORT      SERVICE  RISK      LATENCY  BANNER
+10.0.0.1             22/tcp    ssh      medium    1.0ms    SSH-2.0-OpenSSH_9.6
+10.0.0.1             3389/tcp  rdp      critical  1.5ms    -
+10.0.0.1             8081/tcp  -        info      1.0ms    -
+10.0.0.10 (web.lan)  80/tcp    http     info      2.0ms    -
+
+3 host(s) scanned, 3 up, 2 with open ports | probes: 4 open, 2 closed, 2 filtered | high/critical: 1 | 1.50s
