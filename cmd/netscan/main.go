@@ -17,6 +17,7 @@ import (
 	"net/netip"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"strings"
 	"sync"
 	"syscall"
@@ -40,9 +41,14 @@ const (
 )
 
 func main() {
+	os.Exit(realMain())
+}
+
+// realMain owns every deferred cleanup, so they all run before main calls os.Exit.
+func realMain() int {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	os.Exit(run(ctx, os.Args[1:], os.Stdout, os.Stderr))
+	return run(ctx, os.Args[1:], os.Stdout, os.Stderr)
 }
 
 type options struct {
@@ -228,7 +234,8 @@ func writeReport(r report.Report, f report.Format, path string, stdout io.Writer
 	if path == "" {
 		return report.Write(stdout, f, r)
 	}
-	file, err := os.Create(path)
+	// The output path is chosen by the operator running the CLI; it is only cleaned.
+	file, err := os.Create(filepath.Clean(path))
 	if err != nil {
 		return err
 	}

@@ -56,8 +56,13 @@ func Parse(spec string) ([]uint16, error) {
 			if start > end {
 				return nil, fmt.Errorf("range %q: start is greater than end", item)
 			}
-			for p := int(start); p <= int(end); p++ {
-				add(uint16(p))
+			// Iterate in uint16 and stop at end explicitly, so port 65535
+			// cannot wrap around to 0.
+			for p := start; ; p++ {
+				add(p)
+				if p == end {
+					break
+				}
 			}
 			continue
 		}
